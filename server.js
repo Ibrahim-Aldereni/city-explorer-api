@@ -18,17 +18,15 @@ server.get("/weather", (req, res) => {
   let lon = req.query.lon;
   let searchQuery = req.query.searchQuery;
 
-  let result = "";
   if (
     lat == weatherData.lat &&
     lon == weatherData.lon &&
     searchQuery == weatherData.city_name
   ) {
-    result = weatherData.data;
+    res.send(weatherData.data);
   } else {
-    result = "Error city not found";
+    res.status(500).send("Error, city not found");
   }
-  res.send(result);
 });
 
 //localhost:3001...
