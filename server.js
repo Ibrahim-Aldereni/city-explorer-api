@@ -12,21 +12,27 @@ server.get("/", (req, res) => {
   res.send("This is Home page");
 });
 
-//localhost:3001/weather?lat=..&long=..&searchQuery=...    //`lat`, `lon` and `searchQuery` information.
+//localhost:3001/weather?searchQuery=...
 server.get("/weather", (req, res) => {
-  let lat = req.query.lat;
-  let lon = req.query.lon;
   let searchQuery = req.query.searchQuery;
 
-  if (
-    lat == weatherData.lat &&
-    lon == weatherData.lon &&
-    searchQuery == weatherData.city_name
-  ) {
-    res.send(weatherData.data);
-  } else {
-    res.status(500).send("Error, city not found");
+  class Data {
+    constructor(item) {
+      (this.date = item.datetime),
+        (this.description = item.weather.description);
+    }
   }
+
+  let result = weatherData
+    .find((item) => {
+      if (searchQuery == item.city_name) {
+        return item;
+      }
+    })
+    .data.map((item) => {
+      return new Data(item);
+    });
+  res.send(result);
 });
 
 //localhost:3001...
