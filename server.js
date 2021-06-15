@@ -20,6 +20,9 @@ server.get("/weather", weatherByCity);
 //localhost:3001/weather2?searchQuery=...
 server.get("/weather2", weatherFromApi);
 
+//localhost:3001/movies?searchQuery=...
+server.get("/movies", moviesFromApi);
+
 //localhost:3001...
 server.get("*", notFound);
 
@@ -71,6 +74,32 @@ function weatherFromApi(req, res) {
     constructor(item) {
       (this.date = item.datetime),
         (this.description = item.weather.description);
+    }
+  }
+}
+
+function moviesFromApi(req, res) {
+  let cityName = req.query.searchQuery;
+  let key = process.env.MOVIE_API_KEY;
+
+  let url = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&region=${cityName}
+  `;
+  axios
+    .get(url)
+    .then((response) => {
+      let result = response.data.results.map((item) => {
+        return new Data(item);
+      });
+      result.length == 0 ? res.send("No movies") : res.send(result);
+    })
+    .catch((err) => {
+      res.status(500).send("movies not found in this city");
+    });
+
+  class Data {
+    constructor(item) {
+      (this.title = item.title),
+        (this.poster = `https://image.tmdb.org/t/p/w500${item.poster_path}`);
     }
   }
 }
