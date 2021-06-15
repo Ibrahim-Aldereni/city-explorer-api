@@ -32,10 +32,14 @@ I am using these technologies in this app:
 
 - 14/6/2021 (2:00pm - 4:00pm) - Application now work as a API server.
 
+- 15/6/2021 (1:40pm - 3:30pm) - Application now conect to weather and movies API and send response back to the client.
+
 <!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
 
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 
 ## Credit and Collaborations
 
+- [Weatherbit API](https://www.weatherbit.io/api)
+- [Movies API](https://developers.themoviedb.org/3/getting-started/introduction)
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
