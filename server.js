@@ -82,8 +82,8 @@ function moviesFromApi(req, res) {
   let cityName = req.query.searchQuery;
   let key = process.env.MOVIE_API_KEY;
 
-  let url = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&region=${cityName}
-  `;
+  let url = `https://api.themoviedb.org/3/search/movie?api_key=${key}&query=${cityName}`;
+
   axios
     .get(url)
     .then((response) => {
